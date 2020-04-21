@@ -1,15 +1,53 @@
---Haz una lista de todos los actores que comparten el apellido. Muéstralas en orden
-select *from actor a , actor a2 where a.last_name <> a2.last_name;
---Encuentra actores que no funcionan en ninguna película.
+--1-Haz una lista de todos los actores que comparten el apellido. Muéstralas en orden
+select *from actor a , actor a2 
+    where a.last_name <> a2.last_name;
 
---Encuentra clientes que alquilaron solo una película
-select * from  customer c2 where active = 0;
---Encuentra clientes que alquilaron más de una película
+--2-Encuentra actores que no funcionan en ninguna película.
 
---Enumere los actores que actuaron en 'BETRAYED REAR' o en 'CATCH AMISTAD'
 
---Enumere los actores que actuaron en 'BETRAYED REAR' pero no en 'CATCH AMISTAD'
+--3-Encuentra clientes que alquilaron solo una película
+select * from  customer c2 
+    where active = 0;
 
---Enumere los actores que actuaron tanto en 'BETRAYED REAR' como en 'CATCH AMISTAD'
+--4-Encuentra clientes que alquilaron más de una película
+SELECT * FROM customer c 
+    WHERE (SELECT COUNT(*) 
+    FROM rental r2 
+    WHERE r2.customer_id = c.customer_id) = 1;
 
---Enumere todos los actores que no trabajaron en 'BETRAYED REAR' o 'CATCH AMISTAD'
+--5-Enumere los actores que actuaron en 'BETRAYED REAR' o en 'CATCH AMISTAD'
+SELECT * FROM actor a, film_actor fa , film f 
+    WHERE a.actor_id=fa.actor_id
+	AND f.film_id = fa.film_id 
+    AND (f.title = "BETRAYED REAR" OR f.title = "CATCH AMISTAD");
+
+--6-Enumere los actores que actuaron en 'BETRAYED REAR' pero no en 'CATCH AMISTAD'
+SELECT * FROM actor a, film_actor fa , film f 
+    WHERE a.actor_id=fa.actor_id
+	AND f.film_id=fa.film_id 
+    AND f.title="BETRAYED REAR" 
+    AND a.actor_id NOT IN (
+		SELECT a2.actor_id from actor a2, film_actor fa2, film f2 
+        WHERE a2.actor_id = fa2.actor_id 
+		AND f2.film_id=fa2.film_id 
+        AND f2.title="CATCH AMISTAD"
+	);
+
+--7-Enumere los actores que actuaron tanto en 'BETRAYED REAR' como en 'CATCH AMISTAD'
+SELECT * FROM actor a, film_actor fa , film f 
+    WHERE a.actor_id=fa.actor_id
+	AND f.film_id=fa.film_id 
+    AND f.title="BETRAYED REAR" 
+    AND a.actor_id IN (
+		SELECT a2.actor_id 
+        from actor a2, film_actor fa2, film f2 
+        WHERE a2.actor_id = fa2.actor_id 
+		AND f2.film_id=fa2.film_id 
+        AND f2.title="CATCH AMISTAD"
+	);
+
+--8-Enumere todos los actores que no trabajaron en 'BETRAYED REAR' o 'CATCH AMISTAD'
+SELECT * FROM actor a, film_actor fa , film f 
+    WHERE a.actor_id=fa.actor_id
+	AND f.film_id = fa.film_id 
+    AND (f.title != "BETRAYED REAR" OR f.title != "CATCH AMISTAD");
