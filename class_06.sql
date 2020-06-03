@@ -121,3 +121,4 @@ where
 	and f.film_id = fa.film_id
 	and (f.title != "BETRAYED REAR"
 	or f.title != "CATCH AMISTAD");
+ 
