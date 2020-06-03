@@ -93,4 +93,4 @@ where
 		p2.customer_id = c.customer_id)
 order by
 	min_amount;
--- 
+--  
