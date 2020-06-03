@@ -90,4 +90,4 @@ where
 	s2.manager_staff_id = s.staff_id
 	and s2.store_id = 2
 	and i.store_id = i.film_id
-	and i.film_id = f.film_id ;
+	and i.film_id = f.film_id ; 
