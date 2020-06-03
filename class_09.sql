@@ -1,72 +1,152 @@
+
 -- 1-Obtenga la cantidad de ciudades por país en la base de datos. Ordenarlos por país, country_id.
-SELECT
-	COUNT(*) as cities, c3.country
-FROM
+select
+	count(*) as cities,
+	c3.country
+from
 	city c,
 	country c3
-WHERE c.country_id = c3.country_id
-GROUP BY c3.country, c.country_id;
-
+where
+	c.country_id = c3.country_id
+group by
+	c3.country,
+	c.country_id;
 -- 2-Obtenga la cantidad de ciudades por país en la base de datos. Muestra solo los países con más de 10 ciudades, ordena desde la mayor cantidad de ciudades hasta la más baja
-SELECT
-	COUNT(*) as cities, c3.country
-FROM
+select
+	count(*) as cities,
+	c3.country
+from
 	city c,
 	country c3
-WHERE c.country_id = c3.country_id
-GROUP BY c3.country, c.country_id
-HAVING cities > 10
-ORDER BY cities;
+where
+	c.country_id = c3.country_id
+group by
+	c3.country,
+	c.country_id
+having
+	cities > 10
+order by
+	cities;
 
+----------------------------------------------------TEO
+select
+	country,
+	count(*) as ciudades
+from
+	city
+inner join country on
+	city.country_id = country.country_id
+group by
+	country
+having
+	count(*) >= 10
+order by
+	count(*) desc;
+
+----------------------------------------------------TEO
 -- 3-Genere un informe con el nombre del cliente (nombre, apellido), dirección, películas totales alquiladas y el dinero total gastado en alquilar películas.
+
 -- °Muestre a los que gastaron más dinero primero.
-SELECT
+select
 	c.first_name,
 	c.last_name,
 	a.address,
-	COUNT(*) as amount_rented,
+	count(*) as amount_rented,
 	sum(p.amount) as spent
-FROM
+from
 	customer c,
 	address a,
 	rental r ,
 	payment p
-WHERE
+where
 	c.address_id = a.address_id
-	AND c.customer_id = r.customer_id
-	AND p.rental_id = r.rental_id
-GROUP BY
+	and c.customer_id = r.customer_id
+	and p.rental_id = r.rental_id
+group by
 	c.first_name,
 	c.last_name,
 	a.address
-ORDER BY 
-	spent DESC;
+order by
+	spent desc;
 
+----------------------------------------------martinez
+select
+	concat(cu.first_name, " ", cu.last_name) as name,
+	a.address,
+	(
+	select
+		count(*)
+	from
+		rental r
+	where
+		r.customer_id = cu.customer_id) as total_films,
+	(
+	select
+		sum(amount)
+	from
+		payment p2
+	where
+		p2.customer_id = cu.customer_id) as total_money
+from
+	customer cu,
+	address a
+where
+	cu.address_id = a.address_id
+order by
+	total_money desc;
+
+-------------------------------------------------
 -- 4-¿Qué categorías de películas tienen la mayor duración de película (comparación promedio)?
+
 -- °Ordenar por promedio en orden descendente
-SELECT
+select
 	c.name,
-	AVG(f.`length`) as average_length
-FROM
+	avg(f.`length`) as average_length
+from
 	category c,
 	film f ,
 	film_category fc
-WHERE
+where
 	f.film_id = fc.film_id
-	AND c.category_id = fc.category_id
-GROUP BY c.name
-HAVING average_length > (SELECT AVG(f2.`length`) FROM film f2 )
-ORDER BY average_length DESC;
-
+	and c.category_id = fc.category_id
+group by
+	c.name
+having
+	average_length > (
+	select
+		avg(f2.`length`)
+	from
+		film f2 )
+order by
+	average_length desc;
 -- 5-Mostrar ventas por calificación de película
-SELECT
-	COUNT(*) as sales,
+select
+	count(*) as sales,
 	f.rating
-FROM
+from
 	film f,
 	inventory i,
 	rental r
-WHERE
+where
 	f.film_id = i.film_id
-	AND r.inventory_id = i.inventory_id 
-GROUP BY f.rating;
+	and r.inventory_id = i.inventory_id
+group by
+	f.rating;
+
+-------------------------------
+-- Cordoba
+select
+	film.rating,
+	sum(payment.amount) as sales
+from
+	payment
+inner join rental on
+	payment.rental_id = rental.rental_id
+inner join inventory on
+	rental.inventory_id = inventory.inventory_id
+inner join film on
+	inventory.film_id = film.film_id
+group by
+	film.rating;
+
+--------------------------------
