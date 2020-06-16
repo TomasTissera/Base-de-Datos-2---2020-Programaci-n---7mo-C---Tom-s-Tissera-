@@ -11,18 +11,18 @@ inner join inventory i on
 --Este ejercicio es complicado.
 --pista: use subconsultas en FROM y WHERE o use la combinación izquierda y pregunte si uno de los campos es nulo
 
----- completar -----
-select
-	f.title ,
-	i.inventory_id
-from
-	film f
-inner join inventory i on
-	f.film_id = i.film_id
-left join rental r on
-	i.inventory_id != r.inventory_id;
----- completar -----
 
+SELECT
+	title, inventory.inventory_id, rental.rental_id
+FROM
+	film 
+INNER JOIN 
+	inventory 
+	ON film.film_id = inventory.film_id 
+LEFT OUTER JOIN 
+	rental 
+	ON inventory.inventory_id = rental.inventory_id
+WHERE rental_id IS NULL;
 
 -- 3-Genere un informe con:
 
