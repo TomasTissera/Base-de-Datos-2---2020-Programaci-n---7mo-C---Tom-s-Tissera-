@@ -57,7 +57,12 @@ select
 from
 	sakila.sales_by_film_category;
 
-
+create or replace view sales_by_film_category as 
+select category.name, count(rental_id) as total_rental from category
+inner join film_category using(category_id)
+inner join film using(film_id)
+inner join inventory using(film_id)
+inner join rental using(inventory_id) group by category.category_id;
 -- 4Create a view called actor_information where it should return, actor id, first name, last name and the amount of films he/she acted on.
 select
 	concat( a2.actor_id ,
