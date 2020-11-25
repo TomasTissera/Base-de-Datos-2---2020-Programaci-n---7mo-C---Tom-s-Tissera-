@@ -1,0 +1,47 @@
+-----3-Write examples with string-----
+
+SET nombre Tomas
+GET nombre
+
+-----4-Write examples with hashes-----
+
+HMSET pelicula name "Piratas del Caribe" description "pelicula de Piratas" likes 1
+HGETALL pelicula
+
+-----5-Write examples with Lists-----
+
+LPUSH comida pizza
+LPUSH comida empanada
+LPUSH comida tortilla
+
+-----6-Write examples with Sets-----
+
+SADD comida pizza
+SADD comida empanada
+SADD comida tortilla
+
+-----7-Write examples with Sorted Sets-----
+
+ZADD comida 3 hamburguesa
+ZADD comida 2 pizza
+ZADD comida 1 fajitas
+ZRANGE comidas 0 10 WITHSCORES
+
+-----8-Write examples using Publish Subscribe-----
+
+SUBSCRIBE canal1
+PUBLISH canal1 "title"
+
+-----9-Write examples using Transactions-----
+
+MULTI
+SET mensaje buenas
+GET mensaje
+EXEC 
+
+-----10 - Investigate backups-----
+Se usa para guardar la base de datos
+
+-----11 - Investigate Benchmarks - Run some-----
+redis-benchmark -n 100000
+Es para testear performance
