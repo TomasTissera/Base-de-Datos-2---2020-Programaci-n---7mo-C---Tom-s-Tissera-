@@ -1,14 +1,14 @@
 --Cree una nueva base de datos llamada imdb --Crear tablas: película (film_id,
-título,
-descripción,
-lanzamiento_año);
+--título,
+--descripción,
+--lanzamiento_año);
 
-actor (actor_id,
-first_name,
-last_name),
-film_actor (actor_id,
-film_id) --Usar ID de incremento automático --Crear PK --Alterar tabla agregar columna last_update a película y actor --Alterar tabla agrega claves foráneas a la tabla film_actor --Inserte algunos actores,
-películas y quién actuó en cada película. create database imdb;
+--actor (actor_id,
+--first_name,
+--last_name),
+--film_actor (actor_id,
+--film_id) --Usar ID de incremento automático --Crear PK --Alterar tabla agregar columna last_update a película y actor --Alterar tabla agrega claves foráneas a la tabla film_actor --Inserte algunos actores,
+--películas y quién actuó en cada película. create database imdb;
 
 use imdb;
 

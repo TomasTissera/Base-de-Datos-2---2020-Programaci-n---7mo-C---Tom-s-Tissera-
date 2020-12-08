@@ -1,38 +1,60 @@
------3-Write examples with string-----
+-----3-Escribir ejemplos con String-----
+Crear:
+    SET nombre Tomas
+Buscar:
+    GET nombre
+Borrar:
+    DEL nombre
 
-SET nombre Tomas
-GET nombre
+-----4-Escribe ejemplos con hashes-----
+Crear:
+    HSET hashesEjemplo hashes1 "valor 1"
+    HMSET hashesEjemplo hashes2 "valor 2" hashes3 "valor 3"    
+Buscar:
+    HGET hashesEjemplo hashes1
+    HGETALL hashesEjemplo
+Borrar: 
+    HDEL hashesEjemplo hashes1
 
------4-Write examples with hashes-----
+-----5-Escribir ejemplos con Lists-----
+Crear:
+    LPUSH comida pizza
+    LPUSH comida empanada
+    LPUSH comida tortilla
+Buscar:
+    LRANGE comida 0 -1
+Borrar:
+    LPOP comida
 
-HMSET pelicula name "Piratas del Caribe" description "pelicula de Piratas" likes 1
-HGETALL pelicula
+-----6-Escribir ejemplos con conjuntos "Sets"-----
+Crear:
+    SADD comida pizza
+    SADD comida empanada
+    SADD comida tortilla
+Buscar:
+    SMEMBERS comida
+Borrar:
+    SREM comida pizza
 
------5-Write examples with Lists-----
+-----7-Escribir ejemplos con conjuntos ordenados "Sorted Sets"-----
+Crear:
+    ZADD comida 3 hamburguesa
+    ZADD comida 2 pizza
+    ZADD comida 1 fajitas
+Buscar:
+    ZRANGE comidas 0 -1 WITHSCORES
+Borrar:
+    ZREM comida pizza
 
-LPUSH comida pizza
-LPUSH comida empanada
-LPUSH comida tortilla
+-----8-Escribir ejemplos usando Publish Subscribe-----
+Crear:
+    SUBSCRIBE ejemploPublishSub
+Buscar:
+    PUBLISH ejemploPublishSub "title"
+Borrar:
+    UNSUBSCRIBE ejemploPublishSub
 
------6-Write examples with Sets-----
-
-SADD comida pizza
-SADD comida empanada
-SADD comida tortilla
-
------7-Write examples with Sorted Sets-----
-
-ZADD comida 3 hamburguesa
-ZADD comida 2 pizza
-ZADD comida 1 fajitas
-ZRANGE comidas 0 10 WITHSCORES
-
------8-Write examples using Publish Subscribe-----
-
-SUBSCRIBE canal1
-PUBLISH canal1 "title"
-
------9-Write examples using Transactions-----
+-----9-Escribir ejemplos usando transacciones-----
 
 MULTI
 SET mensaje buenas
@@ -41,7 +63,13 @@ EXEC
 
 -----10 - Investigate backups-----
 Se usa para guardar la base de datos
+Guardar:
+    SAVE
+Guardar en Background:
+    BGSAVE
+Obtener directorio:
+    CONFIG get directorio
 
------11 - Investigate Benchmarks - Run some-----
+-----11 - Investigar puntos de referencia: ejecutar algunos-----
 redis-benchmark -n 100000
 Es para testear performance

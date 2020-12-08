@@ -1,4 +1,4 @@
--- 1Create a view named list_of_customers, it should contain the following columns:
+-- 1 Cree una vista llamada list_of_customers, debe contener las siguientes columnas:
 -- customer id
 -- customer full name,
 -- address
@@ -27,7 +27,9 @@ inner join store s
 select
 	*
 	from list_of_customers;
--- 2Create a view named film_details, it should contain the following columns: film id, title, description, category, price, length, rating, actors - as a string of all the actors separated by comma. Hint use GROUP_CONCAT
+-- 2 Cree una vista llamada detalles de la película, debe contener las siguientes columnas: 
+-- identificación de la película, título, descripción, categoría, precio, duración, calificación, actores, como una cadena de todos los actores separados por comas.
+-- Sugerencia: use GROUP_CONCAT
 create view film_details as
 select
 	f.film_id ,
@@ -50,7 +52,7 @@ inner join actor a
 		using(actor_id);
 SELECT *
         FROM film_details;
--- 3Create view sales_by_film_category, it should return 'category' and 'total_rental' columns.
+-- 3 Cree la view sales_by_film_category, debería devolver las columnas 'categoría' y 'total_rental'.
 select
 	category,
 	total_sales
@@ -63,7 +65,7 @@ inner join film_category using(category_id)
 inner join film using(film_id)
 inner join inventory using(film_id)
 inner join rental using(inventory_id) group by category.category_id;
--- 4Create a view called actor_information where it should return, actor id, first name, last name and the amount of films he/she acted on.
+-- 4 Cree una vista llamada actor_information donde debe devolver, id del actor, nombre, apellido y la cantidad de películas en las que actuó.
 select
 	concat( a2.actor_id ,
 	a2.first_name ,
@@ -72,7 +74,8 @@ select
 
 from
 	actor a2
--- 5Analyze view actor_info, explain the entire query and specially how the sub query works. Be very specific, take some time and decompose each part and give an explanation for each.
+-- 5 Analice la vista actor_info, explique toda la consulta y especialmente cómo funciona la subconsulta.
+-- Sea muy específico, tómese un tiempo y descomponga cada parte y dé una explicación de cada una.
 select
 	actor_id,
 	first_name,
@@ -98,4 +101,3 @@ inner join film_category
 		using(film_id)
 inner join category c
 		using(category_id)
--- 6Materialized views, write a description, why they are used, alternatives, DBMS were they exist, etc.

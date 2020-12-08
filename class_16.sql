@@ -56,12 +56,12 @@ VALUES(10, 'Maradona', 'Diego', 'x10', null, '1', null, 'Dios');
 
 UPDATE employees SET employeeNumber = employeeNumber - 20
 
--- Has updated all the employees numbers for the same number but minus 20
+-- Ha actualizado todos los números de empleados para el mismo número pero menos 20
 
 UPDATE employees SET employeeNumber = employeeNumber + 20
 
--- it has an error beacuse when you run the update because when you add 20 to the first, he tries to take the number 
--- that someone else already has, even though you are going to update it later.
+-- tiene un error porque al ejecutar la actualización porque al sumar 20 al primero, intenta tomar el número
+-- que otra persona ya tiene, aunque lo actualizará más tarde.
 
 -- 3 --
 
@@ -71,13 +71,13 @@ ALTER TABLE employees
 
 -- 4 --
 
--- the table film_actor join the three tables having a PK for both. 
--- If any of these is modified nothing will happen but if eliminate some row this would leave the other two bad 
+-- la tabla film_actor une las tres tablas que tienen un PK para ambas.
+-- Si se modifica alguno de estos no pasará nada pero si se elimina alguna fila esto dejaría los otros dos en mal estado
 
 -- 5 --
--- Create a new column called lastUpdate to table employee and use trigger(s) to keep the date-time updated on inserts and updates operations.
--- Bonus: add a column lastUpdateUser and the respective trigger(s) to specify who was the last MySQL user that changed the row 
--- (assume multiple users, other than root, can connect to MySQL and change this table).
+-- Cree una nueva columna llamada lastUpdate para el empleado de la tabla y use activadores para mantener la fecha y hora actualizada en las operaciones de inserciones y actualizaciones.
+-- Bonificación: agregue una columna lastUpdateUser y los activadores respectivos para especificar quién fue el último usuario de MySQL que cambió la fila
+-- (suponga que varios usuarios, además de root, pueden conectarse a MySQL y cambiar esta tabla).
 
 ALTER TABLE employees 
   ADD lastUpdate DATETIME DEFAULT CURRENT_TIMESTAMP

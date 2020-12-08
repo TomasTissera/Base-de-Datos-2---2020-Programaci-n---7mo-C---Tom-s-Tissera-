@@ -28,22 +28,7 @@ having
 order by
 	cities;
 
-----------------------------------------------------TEO
-select
-	country,
-	count(*) as ciudades
-from
-	city
-inner join country on
-	city.country_id = country.country_id
-group by
-	country
-having
-	count(*) >= 10
-order by
-	count(*) desc;
 
-----------------------------------------------------TEO
 -- 3-Genere un informe con el nombre del cliente (nombre, apellido), dirección, películas totales alquiladas y el dinero total gastado en alquilar películas.
 
 -- °Muestre a los que gastaron más dinero primero.
@@ -68,32 +53,6 @@ group by
 	a.address
 order by
 	spent desc;
-
-----------------------------------------------martinez
-select
-	concat(cu.first_name, " ", cu.last_name) as name,
-	a.address,
-	(
-	select
-		count(*)
-	from
-		rental r
-	where
-		r.customer_id = cu.customer_id) as total_films,
-	(
-	select
-		sum(amount)
-	from
-		payment p2
-	where
-		p2.customer_id = cu.customer_id) as total_money
-from
-	customer cu,
-	address a
-where
-	cu.address_id = a.address_id
-order by
-	total_money desc;
 
 -------------------------------------------------
 -- 4-¿Qué categorías de películas tienen la mayor duración de película (comparación promedio)?
@@ -132,21 +91,5 @@ where
 	and r.inventory_id = i.inventory_id
 group by
 	f.rating;
-
--------------------------------
--- Cordoba
-select
-	film.rating,
-	sum(payment.amount) as sales
-from
-	payment
-inner join rental on
-	payment.rental_id = rental.rental_id
-inner join inventory on
-	rental.inventory_id = inventory.inventory_id
-inner join film on
-	inventory.film_id = film.film_id
-group by
-	film.rating;
 
 -------------------------------- 

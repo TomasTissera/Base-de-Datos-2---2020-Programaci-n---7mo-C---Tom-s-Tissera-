@@ -1,4 +1,4 @@
--- 1 --
+-- 1 Cree dos o tres consultas usando la tabla de direcciones en sakila db--
 SELECT a.address 
 	FROM address a
 	JOIN city USING(city_id)
@@ -14,7 +14,8 @@ SELECT a.address
 	WHERE postal_code in (99865)
 ;
 -- 12ms --
--- 2 --
+-- 2 Ejecute consultas utilizando la tabla de actores, buscando columnas de nombre y apellido de forma independiente. 
+-- Explique las diferencias y ¿por qué sucede eso?--
 SELECT first_name
 	FROM actor a 
 -- 4ms	
@@ -22,7 +23,8 @@ SELECT last_name
 	FROM actor a 
 -- 2ms
 -- last_name tiene un indice
--- 3 --
+
+-- 3 Compare los resultados de la búsqueda de texto en la descripción de la película de mesa con LIKE y en el texto de la película usando MATCH ... CONTRA. Explica los resultados.--
 SELECT description 
 	FROM film f 
 	WHERE description LIKE '%Fast%'
